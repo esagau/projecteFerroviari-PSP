@@ -2,12 +2,22 @@
 
 Repositori de Github del mòdul PSP de l'IES LLUIS SIMARRO específic per al projecte FERROVIARI
 
-## Contingut del Repositori del projecte FERROVIARI:
+<a name="top"></a>
+
+## Índex de continguts
+* [Esquelet (v1.0)](#v10)
+* [Projecte Ferroviari versió 1 ticket sense fils (v1.1)](#v11)
+
+
+
+### Contingut del Repositori del projecte FERROVIARI:
 | Data | Etiqueta | Descripcio|
 | ---- | ---- | ---- |
-| 31/09/2026 | v1.0 | Esquelet inicial del projecte **TREN_v10_Esquelet**|
+| 31/09/2026 | [v1.0](#v10) | Esquelet inicial del projecte **TREN_v10_Esquelet**|
 
-## Introducció
+<a name="v10"></a>
+## Projecte Ferroviari (v1.0)
+### Introducció
 
 Aplicació Java de consola per a la gestió ferroviària de trajectes de trens de llarga distància de la companyia **RENFE**, amb l'objectiu final de **comprar un bitllet** en una categoria concreta d'un tren que cobreix un trajecte entre dues ciutats, en un dia i hora determinats.
 
@@ -17,7 +27,7 @@ Material creat per **Enrique Niclós Camarasa**, per al mòdul *Programació de 
 
 ---
 
-## Característiques principals
+### Característiques principals
 
 - Aplicació **Java de consola**: no hi ha interfície gràfica, totes les dades s'introduïxen per teclat.
 - Gestió completa (**crear, modificar i eliminar**) de Vagons, Categories, Trens i Trajectes mitjançant un menú.
@@ -31,7 +41,7 @@ Material creat per **Enrique Niclós Camarasa**, per al mòdul *Programació de 
 
 ---
 
-## Model de domini
+### Model de domini
 
 ```
 CompanyiaFerroviaria
@@ -54,7 +64,7 @@ CompanyiaFerroviaria
 
 ---
 
-## Regles de negoci
+### Regles de negoci
 
 - Un **Trajecte** està cobert per **un únic Tren** i ofereix una o més **Categories**. Sense tren assignat no es poden afegir categories ni vendre bitllets.
 - Una **Categoria** inclou un o més **Vagons** complets i fixa el **preu** dels seients.
@@ -66,7 +76,7 @@ CompanyiaFerroviaria
 - Sobre un seient ocupat no es permet cap acció.
 - Els identificadors han de ser únics dins de cada tipus d'objecte.
 
-### Distribució dels seients
+#### Distribució dels seients
 
 ```
 |  [1A] [1B]      [1C] [1D]  |
@@ -79,7 +89,7 @@ CompanyiaFerroviaria
 
 ---
 
-## Procés de compra
+### Procés de compra
 
 Per a poder comprar cal que existisca el trajecte, que tinga tren assignat, almenys una categoria, que la categoria tinga almenys un vagó i que el vagó tinga almenys una plaça lliure.
 
@@ -90,7 +100,7 @@ Per a poder comprar cal que existisca el trajecte, que tinga tren assignat, alme
 5. **Pagar** el bitllet.
 6. Si el pagament és correcte, el seient passa a *ocupat* i s'imprimix el bitllet; si no, torna a quedar *lliure*.
 
-### Exemple de bitllet
+#### Exemple de bitllet
 
 ```
 * ************ BITLLET TREN ************* *
@@ -109,7 +119,7 @@ Per a poder comprar cal que existisca el trajecte, que tinga tren assignat, alme
 
 ---
 
-## Menú de l'aplicació
+### Menú de l'aplicació
 
 ```
 Menú aplicació RENFE:
@@ -133,6 +143,37 @@ Menú aplicació RENFE:
 
 ---
 
-## Llicència
+### Llicència
 
 Obra publicada sota llicència **Reconeixement – NoComercial – CompartirIgual (CC BY-NC-SA)**: no es permet un ús comercial de l'obra original ni de les obres derivades, i la seua distribució ha de fer-se amb una llicència igual a la de l'obra original.
+
+[Pujar](#top)
+
+## Projecte Ferroviari versio 1.1 ticket sense fils (v1.1) <a name="v11"></a>
+
+Versió del projecte en què sols es demana implementar els mètodes sense cos, és a dir, aquells mètodes on sols està declarada la interfície (***pagamentBitllet(BigDecimal preu)*** i ***compraBitlletTrajecte()***)
+
+### Canvis de la v1.0 a la v1.1. 
+
+- Només canvia la classe **CompanyiaFerroviaria**. Les altres sis classes són idèntiques, llevat del nom del paquet.
+
+Mètodes: 
+- ***pagamentBitllet(BigDecimal preu)***: 
+  - a l’esquelet (v1.0) és un TODO que retorna *false*. 
+  - A la v1.1:
+    - mostra l’import;
+    - espera 3 s amb *Thread.sleep*, i si l’espera s’interromp considera que el pagament no s’ha fet;
+    - demana la confirmació amb **Validacio.validaBoolea**.
+- ***compraBitlletTrajecte()***: 
+  - a l’esquelet només hi ha els 10 passos en comentaris. 
+  - A la v1.1 estan implementats:
+    - tria el trajecte i comprova que tinga tren;
+    - tria la categoria i el vagó, i comprova que el vagó tinga seients lliures;
+    - mostra el mapa;
+    - demana el seient fins que en tria un de lliure. Amb 0 es cancel·la, i un seient ocupat no es toca mai.
+    - reserva el seient i demana el pagament: si es paga, el seient queda ocupat i s’imprimeix el bitllet; si no, el seient s’allibera;
+    - torna a mostrar el mapa.
+- ***Comentari de capçalera***: canvia de «v1.0 ESQUELET» a «v1.1».
+
+---
+
