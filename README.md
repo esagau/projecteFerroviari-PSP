@@ -6,7 +6,7 @@ Repositori de Github del mòdul PSP de l'IES LLUIS SIMARRO específic per al pro
 
 ## Índex de continguts
 * [Esquelet (v1.0)](#v10)
-* [Projecte Ferroviari versió 1 ticket sense fils (v1.1)](#v11)
+* [Projecte Ferroviari versió 1 bitllet sense fils (v1.1)](#v11)
 
 
 
@@ -14,6 +14,7 @@ Repositori de Github del mòdul PSP de l'IES LLUIS SIMARRO específic per al pro
 | Data | Etiqueta | Descripcio|
 | ---- | ---- | ---- |
 | 31/09/2026 | [v1.0](#v10) | Esquelet inicial del projecte **TREN_v10_Esquelet**|
+| 19/11/2026 | [v1.1](#v11) · [release](../../releases/tag/v1.1) | Solució del Treball 1: compra d'1 bitllet sense fils **TREN_v11_Compra1Bitllet** | [`TREN_v11_Compra1Bitllet`](TREN_v11_Compra1Bitllet) · [`CANVIS.md`](TRENv11_Compra1Bitllet/CANVIS.md) |
 
 <a name="v10"></a>
 ## Projecte Ferroviari (v1.0)
@@ -149,9 +150,16 @@ Obra publicada sota llicència **Reconeixement – NoComercial – CompartirIgua
 
 [Pujar](#top)
 
-## Projecte Ferroviari versio 1.1 ticket sense fils (v1.1) <a name="v11"></a>
+## Projecte Ferroviari versio 1.1 bitllet sense fils (v1.1) <a name="v11"></a>
 
 Versió del projecte en què sols es demana implementar els mètodes sense cos, és a dir, aquells mètodes on sols està declarada la interfície (***pagamentBitllet(BigDecimal preu)*** i ***compraBitlletTrajecte()***)
+
+### Conceptes treballats
+
+- Simulació d'una espera amb `Thread.sleep()` i tractament de l'excepció comprovada `InterruptedException`.
+- Cicle de vida d'un seient: *lliure* → *reservat* → *ocupat* (si es paga) o de nou *lliure* (si no es paga).
+- Validació de l'entrada per teclat amb la classe `Validacio` i cancel·lació amb `0`.
+- Recorregut guiat per les relacions entre objectes: Trajecte → Categoria → Vagó → Seient.
 
 ### Canvis de la v1.0 a la v1.1. 
 
@@ -175,5 +183,11 @@ Mètodes:
     - torna a mostrar el mapa.
 - ***Comentari de capçalera***: canvia de «v1.0 ESQUELET» a «v1.1».
 
----
+### On trobar la solució
 
+- **Carpeta:** [`TRENv11_Compra1Bitllet`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v11_Compra1Bitllet) (paquet `RENFE_v11_Compra1Bitllet`).
+- **Etiqueta:** `v1.1`. Pots descarregar el codi d'aquesta versió des de la [release v1.1](../../releases/tag/v1.1) o, si has clonat el repositori, amb `git checkout v1.1`.
+- **Canvis detallats:** el fitxer [`CANVIS.md`](TRENv11_Compra1Bitllet/CANVIS.md) explica pas a pas la implementació i les proves realitzades.
+- **Dins del codi:** cada canvi respecte a l'esquelet està marcat amb un comentari `[v1.1]`. La capçalera de `CompanyiaFerroviaria` en conté el resum.
+
+---
