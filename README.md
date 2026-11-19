@@ -150,18 +150,18 @@ Obra publicada sota llicència **Reconeixement – NoComercial – CompartirIgua
 
 [Pujar](#top)
 
-## Projecte Ferroviari versio 1.1 bitllet sense fils (v1.1) <a name="v11"></a>
+## 1. Projecte Ferroviari versio 1.1 bitllet sense fils (v1.1) <a name="v11"></a>
 
 Versió del projecte en què sols es demana implementar els mètodes sense cos, és a dir, aquells mètodes on sols està declarada la interfície (***pagamentBitllet(BigDecimal preu)*** i ***compraBitlletTrajecte()***)
 
-### Conceptes treballats
+### 1.1. Conceptes treballats
 
 - Simulació d'una espera amb `Thread.sleep()` i tractament de l'excepció comprovada `InterruptedException`.
 - Cicle de vida d'un seient: *lliure* → *reservat* → *ocupat* (si es paga) o de nou *lliure* (si no es paga).
 - Validació de l'entrada per teclat amb la classe `Validacio` i cancel·lació amb `0`.
 - Recorregut guiat per les relacions entre objectes: Trajecte → Categoria → Vagó → Seient.
 
-### Canvis de la v1.0 a la v1.1. 
+### 1.2. Canvis de la v1.0 a la v1.1. 
 
 - Només canvia la classe **CompanyiaFerroviaria**. Les altres sis classes són idèntiques, llevat del nom del paquet.
 
@@ -183,7 +183,7 @@ Mètodes:
     - torna a mostrar el mapa.
 - ***Comentari de capçalera***: canvia de «v1.0 ESQUELET» a «v1.1».
 
-### On trobar la solució
+### 1.3. On trobar la solució
 
 - **Carpeta:** [`TRENv11_Compra1Bitllet`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v11_Compra1Bitllet) (paquet `RENFE_v11_Compra1Bitllet`).
 - **Etiqueta:** `v1.1`. Pots descarregar el codi d'aquesta versió des de la [release v1.1](../../releases/tag/v1.1) o, si has clonat el repositori, amb `git checkout v1.1`.
@@ -191,3 +191,80 @@ Mètodes:
 - **Dins del codi:** cada canvi respecte a l'esquelet està marcat amb un comentari `[v1.1]`. La capçalera de `CompanyiaFerroviaria` en conté el resum.
 
 ---
+<a name="v21"></a>
+## 2. Projecte Ferroviari (v2.1): compra d'1 bitllet amb fils
+
+### 2.1. Contingut
+
+La carpeta [`TRENv21_Compra1Bitllet_Threads`](TRENv21_Compra1Bitllet_Threads) (paquet `RENFE_v21_Compra1Bitllet_Threads`) conté la **solució del Treball 2**. Parteix de la versió 1.1 (`TRENv11_Compra1Bitllet`) i fa que la compra d'un bitllet (opció 14 del menú) s'execute en fils independents del fil principal:
+
+- `FilCompraBitlletTrajecte` (nou): fil que fa la compra d'un bitllet. L'opció 14 en llança 2 alhora i el fil principal espera que acaben (`join()`).
+- **Teclat compartit:** els mètodes de `Validacio` són `synchronized` i cada pregunta porta com a prefix el nom del fil (`[fil ppal]`, `[filCompraBitlletTrajecte1]`...).
+- **Seients compartits:** `Vago` reserva, ocupa i allibera els seients amb mètodes `synchronized`, de manera que un seient no es pot vendre dues vegades.
+- `ProvaConcurrencia` (nou, per al professorat): llança N fils que competeixen pels mateixos seients i responen automàticament.
+
+### 2.2. Canvis respecte a la v1.1  
+
+Aquest projecte (`TRENv21_Compra1Bitllet_Threads`, paquet `RENFE_v21_Compra1Bitllet_Threads`) és la **solució del Treball 2** (v2.1): la compra d'un bitllet es fa en fils independents del fil principal. Parteix de la v1.1 `TRENv11_Compra1Bitllet` (paquet `RENFE_v11_Compra1Bitllet`) d'aquest mateix repositori.
+
+### 2.3. Resum dels canvis respecte a la v1.1
+
+| Fitxer | Canvi |
+|---|---|
+| Tots | paquet `RENFE_v21_Compra1Bitllet_Threads` (abans `RENFE_v11_Compra1Bitllet`). |
+| `Categoria`, `Seient`, `Trajecte`, `Tren` | Sense canvis (només el nom del paquet). |
+| `CompanyiaFerroviaria` | Nom del fil principal, opció 14 amb fils (`llancaFilsCompra()`), prefix del fil a `pagamentBitllet()`; `compraBitlletTrajecte()` passa al fil. |
+| `Vago` | Mètodes `synchronized` per als seients i eixida sense barrejar. |
+| `Validacio` | Teclat sincronitzat i prefix amb el nom del fil. |
+| `FilCompraBitlletTrajecte` | **Nou.** Compra d'un bitllet en 4 fases. |
+| `ProvaConcurrencia` | **Nou.** Eina per al professorat. |
+
+#### 2.3.1. `CompanyiaFerroviaria`
+
+- **Nom del fil principal.** Al `main()` es posa `Thread.currentThread().setName("fil ppal")`. El nom ix com a prefix a cada pregunta.
+- **Atributs nous:**
+  - `NUM_FILS_COMPRA = 2`: el requisit 4 de l'enunciat demana almenys 2 fils;
+  - `numFil`: comptador per numerar els fils.
+- **Opció 14.** Crida `llancaFilsCompra()`, un mètode nou que:
+  - crea els fils `filCompraBitlletTrajecte1`, `filCompraBitlletTrajecte2`…;
+  - els llança;
+  - espera que acaben amb `join()`, tal com permet el requisit 3.
+- **`pagamentBitllet(BigDecimal)` es manté com a mètode propi**, igual que a la v1.1, i el criden els fils:
+  - els missatges porten el prefix del fil;
+  - el `Thread.sleep(3000)` es fa **sense cap bloqueig**, així que els pagaments de diversos fils es fan en paral·lel: si dos fils paguen, tarden uns 3 s en total, no 6;
+  - només la confirmació S/N ocupa el teclat, el temps de llegir la resposta.
+- **`compraBitlletTrajecte()`** es trasllada a `FilCompraBitlletTrajecte`.
+
+#### 2.3.2. `Validacio`: el teclat és un recurs compartit
+
+- **Monitor del teclat.** Tots els mètodes públics `valida...` són `public static synchronized`, i el monitor és `Validacio.class`. Així, mai no llegeixen dos fils alhora.
+- **Mètode nou `prefix()`.** Retorna `"[" + nom del fil + "] "`.
+  - `llegeixLinia()` el posa davant de cada pregunta, després dels salts de línia inicials.
+  - El mètode nou `error()` el posa davant dels missatges d'error de `Validacio`.
+- **Preguntes agrupades.** Un fil pot fer diverses preguntes seguides dins de `synchronized (Validacio.class) { ... }` sense que s'hi fique cap altre fil. Funciona perquè el fil que ja té el monitor de `Validacio.class` pot tornar a entrar als mètodes `static synchronized` de `Validacio` (els monitors de Java són **reentrants**).
+
+#### 2.3.3. `Vago`: els seients són un recurs compartit
+
+El monitor és **cada objecte `Vago`**, i dins d'aquests mètodes no es llig mai el teclat.
+
+- **Mètodes nous:**
+  - `synchronized boolean reservaSeient(Seient s)`: **comprova i reserva en una sola operació atòmica**, i retorna `false` si el seient ja no està lliure. Si es feren en dos passos, dos fils podrien veure el seient lliure i reservar-lo tots dos.
+  - `synchronized void ocupaSeient(Seient s)`.
+  - `synchronized void alliberaSeient(Seient s)`.
+- **Mètodes que passen a ser `synchronized`:** `mapaVago()`, `numSeientsLliures()` i `teReserves()`.
+- **Eixida sense barrejar:**
+  - `mapaVago()` construeix el text amb un `StringBuilder` (és una «foto» coherent del vagó) i l'imprimeix d'una sola vegada;
+  - `imprimirBitllet()` construeix el bitllet sencer, amb el prefix del fil, i també l'imprimeix d'una vegada.
+
+#### 2.3.4. `FilCompraBitlletTrajecte` (nou)
+
+`Runnable` amb el codi de compra de la v1.1, organitzat en fases. Els missatges porten el prefix del fil (mètode `missatge()`) i la reserva del seient es fa amb `vago.reservaSeient(triat)` en lloc de `triat.verificaSeient()` + `seient.reservaSeient()`.
+
+| Fase | Què fa | Bloqueig |
+|---|---|---|
+| 1 | Passos 1-5: tria del trajecte, la categoria i el vagó, i mapa del vagó | `synchronized (Validacio.class)`: el fil manté el teclat tota la fase (i pren el `Vago` un moment per comptar els seients lliures i fer el mapa). |
+| 2 | Pas 6: tria del seient i `vago.reservaSeient(triat)` | Teclat i, dins, el `Vago`. |
+| 3 | Pagament: `CompanyiaFerroviaria.pagamentBitllet(preu)` | Cap durant el retard; el teclat només per a la confirmació S/N. |
+| 4 | Passos 7-10: ocupar o alliberar el seient, imprimir el bitllet i mostrar el mapa | `Vago` (ocupar, alliberar i mapa). |
+
+**Ordre dels bloquejos:** sempre teclat → vagó, mai a l'inrevés. Per això no hi pot haver interbloqueig.
