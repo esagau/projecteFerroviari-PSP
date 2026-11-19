@@ -118,9 +118,8 @@ public class Vago {
 
 	//*****************************************************************
 	//Mostra el mapa de seients del vagó amb la icona de l'estat de cada seient.
-	//[v2.1] Ara és synchronized: es construeix el text amb StringBuilder per evitar
-	//que s’hi barreje l’eixida d’altres filsi s'imprimeix d'una sola vegada,
-	//perquè no es barrege amb l'eixida d'altres fils.
+	//[v2.1] Ara és synchronized: es construeix el text amb StringBuilder i s'imprimeix
+	//d'una sola vegada, perquè no es barrege amb l'eixida d'altres fils.
 	public synchronized void mapaVago() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n\t=============  MAPA VAGO ").append(idVago).append("  ================\n");
