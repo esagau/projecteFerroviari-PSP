@@ -19,6 +19,7 @@ Cada versió del projecte està en el seu propi **paquet** de codi i té associa
 | ---- | ---- | ---- | ---- | ---- |
 | 31/10/2026 | [v1.0](../../releases/tag/v1.0) | Esquelet inicial del projecte (punt de partida del Treball 1) | [`TREN_v10_Compra1Bitllet`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v10_Compra1Bitllet) | — |
 | 19/11/2026 | [v1.1](../../releases/tag/v1.1) | Solució del Treball 1: compra d'1 bitllet sense fils | [`TREN_v11_Compra1Bitllet`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v11_Compra1Bitllet) | [`CANVIS.md`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v11_Compra1Bitllet/CANVIS.md) |
+| 19/11/2026 | [v2.1](../../releases/tag/v2.1) | Solució del Treball 2: compra d'1 bitllet amb fils | [`TREN_v21_Compra1Bitllet_Threads`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v21_Compra1Bitllet_Threads) | [`CANVIS.md`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v21_Compra1Bitllet_Threads/CANVIS.md) |
 
 ### 1.1. Com obtindre una versió concreta
 
@@ -42,8 +43,10 @@ README.md                        ← aquest fitxer: informació general del proj
 iessimarro-dam2semi-psp2627_projecteFerroviari/   ← projecte d'Eclipse (Spring Tools)
  └── src/
       ├── TREN_v10_Compra1Bitllet/   ← v1.0: esquelet
-      └── TREN_v11_Compra1Bitllet/   ← v1.1: solució del Treball 1
-           └── CANVIS.md             ← canvis respecte a la v1.0
+      ├── TREN_v11_Compra1Bitllet/   ← v1.1: solució del Treball 1
+      │    └── CANVIS.md             ← canvis respecte a la v1.0
+      └── TREN_v21_Compra1Bitllet_Threads/   ← v2.1: solució del Treball 2
+           └── CANVIS.md             ← canvis respecte a la v1.1
 ```
 
 - El projecte s'importa a Eclipse amb **File → Import → Existing Projects into Workspace**.
