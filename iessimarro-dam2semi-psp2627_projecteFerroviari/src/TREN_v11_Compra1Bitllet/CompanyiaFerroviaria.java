@@ -19,7 +19,7 @@ import java.util.Calendar;
  * ====================================================================
  * CANVIS DE LA v1.1 RESPECTE A L'ESQUELET v1.0 (TREN_v10)
  * ====================================================================
- *  - Paquet: TREN_v10_Compra1Bitllet  ->  RENFE_v11_Compra1Bitllet (en totes les classes).
+ *  - Paquet: TREN_v10_Compra1Bitllet  ->  TREN_v11_Compra1Bitllet (en totes les classes).
  *  - Aquesta capçalera: abans deia "v1.0: ESQUELET per a l'alumnat" i
  *    "TREBALL 1: implementa els mètodes pagamentBitllet() i compraBitlletTrajecte()".
  *  - pagamentBitllet(BigDecimal preu): IMPLEMENTAT. A l'esquelet només tenia
