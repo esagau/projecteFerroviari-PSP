@@ -201,7 +201,7 @@ La carpeta [`TRENv21_Compra1Bitllet_Threads`](TRENv21_Compra1Bitllet_Threads) (p
 - `FilCompraBitlletTrajecte` (nou): fil que fa la compra d'un bitllet. L'opció 14 en llança 2 alhora i el fil principal espera que acaben (`join()`).
 - **Teclat compartit:** els mètodes de `Validacio` són `synchronized` i cada pregunta porta com a prefix el nom del fil (`[fil ppal]`, `[filCompraBitlletTrajecte1]`...).
 - **Seients compartits:** `Vago` reserva, ocupa i allibera els seients amb mètodes `synchronized`, de manera que un seient no es pot vendre dues vegades.
-- `ProvaConcurrencia` (nou, per al professorat): llança N fils que competeixen pels mateixos seients i responen automàticament.
+
 
 ### 2.2. Canvis respecte a la v1.1  
 
@@ -217,7 +217,6 @@ Aquest projecte (`TRENv21_Compra1Bitllet_Threads`, paquet `RENFE_v21_Compra1Bitl
 | `Vago` | Mètodes `synchronized` per als seients i eixida sense barrejar. |
 | `Validacio` | Teclat sincronitzat i prefix amb el nom del fil. |
 | `FilCompraBitlletTrajecte` | **Nou.** Compra d'un bitllet en 4 fases. |
-| `ProvaConcurrencia` | **Nou.** Eina per al professorat. |
 
 #### 2.3.1. `CompanyiaFerroviaria`
 
