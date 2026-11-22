@@ -1,4 +1,4 @@
-package TREN_v12_Compra1Bitllet_EsterAgusti;
+package TREN_v12_CompraNBitllets_EsterAgusti;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package TREN_v12_Compra1Bitllet_EsterAgusti;
+package TREN_v12_CompraNBitllets_EsterAgusti;
 
 /**
  * Seient d'un Vagó.
