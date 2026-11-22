@@ -1,23 +1,64 @@
 # Projecte FERROVIARI (RENFE) – Compra de bitllets
 
-Repositori de Github del mòdul PSP de l'IES LLUIS SIMARRO específic per al projecte FERROVIARI
+Repositori de GitHub del mòdul *Programació de serveis i processos* (PSP) de l'IES Lluís Simarro, específic per al projecte FERROVIARI.
 
 <a name="top"></a>
 
 ## Índex de continguts
-* [Esquelet (v1.0)](#v10)
-* [Projecte Ferroviari versió 1 ticket sense fils (v1.1)](#v11)
+* [1. Versions publicades](#versions)
+* [2. Organització del repositori](#organitzacio)
+* [3. Descripció del projecte](#descripcio)
+* [4. Llicència](#llicencia)
 
+<a name="versions"></a>
+## 1. Versions publicades
 
+Cada versió del projecte està en el seu propi **paquet** de codi i té associada una **etiqueta** (*tag*) de Git. A partir de la v1.1, cada paquet inclou un fitxer `CANVIS.md` que explica què canvia respecte a la versió anterior.
 
-### Contingut del Repositori del projecte FERROVIARI:
-| Data | Etiqueta | Descripcio|
-| ---- | ---- | ---- |
-| 31/09/2026 | [v1.0](#v10) | Esquelet inicial del projecte **TREN_v10_Esquelet**|
+| Data | Etiqueta | Descripció | Paquet | Canvis |
+| ---- | ---- | ---- | ---- | ---- |
+| 31/10/2026 | [v1.0](../../releases/tag/v1.0) | Esquelet inicial del projecte (punt de partida del Treball 1) | [`TREN_v10_Compra1Bitllet`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v10_Compra1Bitllet) | — |
+| 19/11/2026 | [v1.1](../../releases/tag/v1.1) | Solució del Treball 1: compra d'1 bitllet sense fils | [`TREN_v11_Compra1Bitllet`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v11_Compra1Bitllet) | [`CANVIS.md`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v11_Compra1Bitllet/CANVIS.md) |
+| 19/11/2026 | [v2.1](../../releases/tag/v2.1) | Solució del Treball 2: compra d'1 bitllet amb fils | [`TREN_v21_Compra1Bitllet_Threads`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v21_Compra1Bitllet_Threads) | [`CANVIS.md`](iessimarro-dam2semi-psp2627_projecteFerroviari/src/TREN_v21_Compra1Bitllet_Threads/CANVIS.md) |
 
-<a name="v10"></a>
-## Projecte Ferroviari (v1.0)
-### Introducció
+### 1.1. Com obtindre una versió concreta
+
+- **Des de GitHub:** obri la *release* de la versió (enllaç de la columna «Etiqueta») i descarrega el codi en `.zip`.
+- **Amb Git:** si ja has clonat el repositori, actualitza'l i situa't en l'etiqueta que vulgues:
+
+```bash
+git pull
+git checkout v1.1
+```
+
+Per a tornar a la versió més recent, executa `git checkout main`.
+
+[Pujar](#top)
+
+<a name="organitzacio"></a>
+## 2. Organització del repositori
+
+```
+README.md                        ← aquest fitxer: informació general del projecte
+iessimarro-dam2semi-psp2627_projecteFerroviari/   ← projecte d'Eclipse (Spring Tools)
+ └── src/
+      ├── TREN_v10_Compra1Bitllet/   ← v1.0: esquelet
+      ├── TREN_v11_Compra1Bitllet/   ← v1.1: solució del Treball 1
+      │    └── CANVIS.md             ← canvis respecte a la v1.0
+      └── TREN_v21_Compra1Bitllet_Threads/   ← v2.1: solució del Treball 2
+           └── CANVIS.md             ← canvis respecte a la v1.1
+```
+
+- El projecte s'importa a Eclipse amb **File → Import → Existing Projects into Workspace**.
+- Totes les versions comparteixen el mateix model de domini, les mateixes regles de negoci i el mateix menú, descrits en l'[apartat 3](#descripcio).
+- Dins del codi, cada canvi respecte a la versió anterior està marcat amb un comentari amb el número de versió (per exemple, `[v1.1]`).
+
+[Pujar](#top)
+
+<a name="descripcio"></a>
+## 3. Descripció del projecte
+
+### 3.1. Introducció
 
 Aplicació Java de consola per a la gestió ferroviària de trajectes de trens de llarga distància de la companyia **RENFE**, amb l'objectiu final de **comprar un bitllet** en una categoria concreta d'un tren que cobreix un trajecte entre dues ciutats, en un dia i hora determinats.
 
@@ -27,7 +68,7 @@ Material creat per **Enrique Niclós Camarasa**, per al mòdul *Programació de 
 
 ---
 
-### Característiques principals
+### 3.2. Característiques principals
 
 - Aplicació **Java de consola**: no hi ha interfície gràfica, totes les dades s'introduïxen per teclat.
 - Gestió completa (**crear, modificar i eliminar**) de Vagons, Categories, Trens i Trajectes mitjançant un menú.
@@ -41,7 +82,7 @@ Material creat per **Enrique Niclós Camarasa**, per al mòdul *Programació de 
 
 ---
 
-### Model de domini
+### 3.3. Model de domini
 
 ```
 CompanyiaFerroviaria
@@ -64,7 +105,7 @@ CompanyiaFerroviaria
 
 ---
 
-### Regles de negoci
+### 3.4. Regles de negoci
 
 - Un **Trajecte** està cobert per **un únic Tren** i ofereix una o més **Categories**. Sense tren assignat no es poden afegir categories ni vendre bitllets.
 - Una **Categoria** inclou un o més **Vagons** complets i fixa el **preu** dels seients.
@@ -76,7 +117,7 @@ CompanyiaFerroviaria
 - Sobre un seient ocupat no es permet cap acció.
 - Els identificadors han de ser únics dins de cada tipus d'objecte.
 
-#### Distribució dels seients
+#### 3.4.1. Distribució dels seients
 
 ```
 |  [1A] [1B]      [1C] [1D]  |
@@ -89,7 +130,7 @@ CompanyiaFerroviaria
 
 ---
 
-### Procés de compra
+### 3.5. Procés de compra
 
 Per a poder comprar cal que existisca el trajecte, que tinga tren assignat, almenys una categoria, que la categoria tinga almenys un vagó i que el vagó tinga almenys una plaça lliure.
 
@@ -100,7 +141,7 @@ Per a poder comprar cal que existisca el trajecte, que tinga tren assignat, alme
 5. **Pagar** el bitllet.
 6. Si el pagament és correcte, el seient passa a *ocupat* i s'imprimix el bitllet; si no, torna a quedar *lliure*.
 
-#### Exemple de bitllet
+#### 3.5.1. Exemple de bitllet
 
 ```
 * ************ BITLLET TREN ************* *
@@ -119,7 +160,7 @@ Per a poder comprar cal que existisca el trajecte, que tinga tren assignat, alme
 
 ---
 
-### Menú de l'aplicació
+### 3.6. Menú de l'aplicació
 
 ```
 Menú aplicació RENFE:
@@ -141,39 +182,11 @@ Menú aplicació RENFE:
  0. Eixir aplicació RENFE
 ```
 
----
+[Pujar](#top)
 
-### Llicència
+<a name="llicencia"></a>
+## 4. Llicència
 
 Obra publicada sota llicència **Reconeixement – NoComercial – CompartirIgual (CC BY-NC-SA)**: no es permet un ús comercial de l'obra original ni de les obres derivades, i la seua distribució ha de fer-se amb una llicència igual a la de l'obra original.
 
 [Pujar](#top)
-
-## Projecte Ferroviari versio 1.1 ticket sense fils (v1.1) <a name="v11"></a>
-
-Versió del projecte en què sols es demana implementar els mètodes sense cos, és a dir, aquells mètodes on sols està declarada la interfície (***pagamentBitllet(BigDecimal preu)*** i ***compraBitlletTrajecte()***)
-
-### Canvis de la v1.0 a la v1.1. 
-
-- Només canvia la classe **CompanyiaFerroviaria**. Les altres sis classes són idèntiques, llevat del nom del paquet.
-
-Mètodes: 
-- ***pagamentBitllet(BigDecimal preu)***: 
-  - a l’esquelet (v1.0) és un TODO que retorna *false*. 
-  - A la v1.1:
-    - mostra l’import;
-    - espera 3 s amb *Thread.sleep*, i si l’espera s’interromp considera que el pagament no s’ha fet;
-    - demana la confirmació amb **Validacio.validaBoolea**.
-- ***compraBitlletTrajecte()***: 
-  - a l’esquelet només hi ha els 10 passos en comentaris. 
-  - A la v1.1 estan implementats:
-    - tria el trajecte i comprova que tinga tren;
-    - tria la categoria i el vagó, i comprova que el vagó tinga seients lliures;
-    - mostra el mapa;
-    - demana el seient fins que en tria un de lliure. Amb 0 es cancel·la, i un seient ocupat no es toca mai.
-    - reserva el seient i demana el pagament: si es paga, el seient queda ocupat i s’imprimeix el bitllet; si no, el seient s’allibera;
-    - torna a mostrar el mapa.
-- ***Comentari de capçalera***: canvia de «v1.0 ESQUELET» a «v1.1».
-
----
-
